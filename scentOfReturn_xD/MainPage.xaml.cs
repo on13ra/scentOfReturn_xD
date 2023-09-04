@@ -21,5 +21,15 @@ namespace scentOfReturn_xD
         {
             await Navigation.PushAsync(new Features());
         }
+
+        async private void SelectGroup(object sender, TappedEventArgs e)
+        {
+            await Navigation.PushAsync(new GroupSelect());
+        }
+
+        private void HAJKATuE(object sender, EventArgs e)
+        {
+
+        }
     }
 }
