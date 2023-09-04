@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="scentOfReturn_xD.MainPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="BlanchedAlmond">
+
+    
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+       
+        
+
+            <Label Grid.Row="0"       
+                   FontSize="30"             
+                   TextColor="LightPink"     
+                   HorizontalOptions="EndAndExpand" 
+                   VerticalOptions="Start"
+                   Margin="0,0,40,0"
+                   FontFamily="georgia">
+                <Label.FormattedText>
+                    <FormattedString>
+                    <Span Text="Hello, "/>
+                        <Span Text="{Binding Path=CurrentGroup}">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding TapCommand}"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                        <Span/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        
+        <BoxView Grid.Row="0"
+                 Grid.RowSpan="3"
+                 BackgroundColor="#E5D3B8"
+                 WidthRequest="20" 
+                 HeightRequest="1000"
+                 HorizontalOptions="End"
+                 Opacity="0.2">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="ToNews"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+        <BoxView Grid.Row="0"
+                 Grid.RowSpan="3"
+                 BackgroundColor="#E5D3B8"
+                 WidthRequest="20"
+                 HeightRequest="1000"
+                 HorizontalOptions="Start"
+                 Opacity="0.2">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="ToFeatures"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
+    </Grid>
+   
+
+</ContentPage>
