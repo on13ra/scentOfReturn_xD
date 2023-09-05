@@ -31,7 +31,7 @@
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
-        
+        <Label Grid.Row="1" x:Name="Cock" Text="" HorizontalOptions="Center" TextColor="Black"/>
         <BoxView Grid.Row="0"
                  Grid.RowSpan="3"
                  BackgroundColor="#E5D3B8"
@@ -54,7 +54,7 @@
                 <TapGestureRecognizer Tapped="ToFeatures"/>
             </BoxView.GestureRecognizers>
         </BoxView>
-        <Button Grid.Row="1" Text="KHOIIKA" Clicked="HAJKATuE"/> 
+        <!--<Button Grid.Row="2" Text="KHOIIKA"  Clicked="HAJKATuE"/>--> 
             <!--америкаа-->
     </Grid>
     
