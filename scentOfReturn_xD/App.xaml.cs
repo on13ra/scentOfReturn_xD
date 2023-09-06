@@ -1,4 +1,8 @@
-﻿namespace scentOfReturn_xD
+﻿
+using scentOfReturn_xD.Pages;
+using System.Dynamic;
+
+namespace scentOfReturn_xD
 {
     public partial class App : Application
     {
@@ -6,7 +10,15 @@
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainPage());
+
+            if (Settings.Settings.FirstRun)
+            {
+
+                MainPage = new NavigationPage(new GroupSelect());
+                Settings.Settings.FirstRun = false;
+            }
+            else { MainPage = new NavigationPage(new MainPage()); }
         }
+      
     }
 }

@@ -19,5 +19,10 @@
                 </x:Array>
             </Picker.ItemsSource>
         </Picker>
+        <BoxView Opacity="0.1" BackgroundColor="BlanchedAlmond" WidthRequest="15" HeightRequest="1000" HorizontalOptions="Start">
+            <BoxView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="ReturnBack"/>
+            </BoxView.GestureRecognizers>
+        </BoxView>
     </VerticalStackLayout>
 </ContentPage>

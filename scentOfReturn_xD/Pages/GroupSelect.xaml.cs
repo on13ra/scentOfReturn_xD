@@ -6,4 +6,9 @@ public partial class GroupSelect : ContentPage
 	{
 		InitializeComponent();
 	}
+
+   async private void ReturnBack(object sender, TappedEventArgs e)
+    {
+		await Navigation.PopAsync();
+    }
 }

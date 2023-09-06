@@ -1,28 +1,28 @@
 ﻿using scentOfReturn_xD.Pages;
-using System;
-using System.Net;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection.Metadata;
-using Microsoft.Office.Interop.Word;
-
+using System.Windows.Input;
 
 namespace scentOfReturn_xD
 
 {
-    
+
     public partial class MainPage : ContentPage
     {
-        
 
-        static string tempPath = System.IO.Path.GetTempPath();
-       
+
+        //static string tempPath = System.IO.Path.GetTempPath();
+        
         public MainPage()
         {
             InitializeComponent();
-            Cock.Text = tempPath;
-                
-        } 
+            string gdText = GroupDisplay.Text.ToString();
+            if (gdText.Contains("CurrentGroup"))
+            {
+                GroupDisplay.Text = "Выберите группу";
+            }
+            else GroupDisplay.Text = "hawaii";
+            //ICommand TappedToChoose = new Command(async (Features) => await Navigation.PushAsync(new Features()));
+            //BindingContext = this;
+        }
 
         async private void ToNews(object sender, TappedEventArgs e)
         {
@@ -34,14 +34,21 @@ namespace scentOfReturn_xD
             await Navigation.PushAsync(new Features());
         }
 
-        async private void SelectGroup(object sender, TappedEventArgs e)
+       
+
+         async private void SelectGroup(object sender, TappedEventArgs e)
         {
             await Navigation.PushAsync(new GroupSelect());
         }
-       
+
+        private void updateRasp(object sender, EventArgs e)
+        {
+
+        }
+
         //private void HAJKATuE(object sender, EventArgs e)//
         //{
-            
+
         //    //string path = @"C:\VpmtTracker\temp\";
         //    string path = tempPath; //темп 1
         //    string path1 = "";
@@ -101,6 +108,6 @@ namespace scentOfReturn_xD
         //    WebClient webClient = new WebClient();
         //    webClient.DownloadFile("http://www.vpmt.ru/docs/rasp.doc", tempPath); //скачать
         //}
-       
+
     }
 }
