@@ -1,4 +1,6 @@
 ﻿using scentOfReturn_xD.Pages;
+using System.Net.Sockets;
+using System.Net;
 using System.Windows.Input;
 
 namespace scentOfReturn_xD
@@ -22,6 +24,8 @@ namespace scentOfReturn_xD
             else GroupDisplay.Text = "hawaii";
             //ICommand TappedToChoose = new Command(async (Features) => await Navigation.PushAsync(new Features()));
             //BindingContext = this;
+           
+
         }
 
         async private void ToNews(object sender, TappedEventArgs e)
@@ -44,6 +48,51 @@ namespace scentOfReturn_xD
         private void updateRasp(object sender, EventArgs e)
         {
 
+        }
+
+        private void HAЭKATuE(object sender, EventArgs e)
+        {
+            
+                try
+                {
+                    Communicate("10.0.2.2", 8888);
+                }
+                catch (Exception ex)
+                {
+                    //Console.WriteLine(ex.ToString());
+                }
+
+            void Communicate(string hostname, int port)
+            {
+                // Буфер для входящих данных
+                byte[] bytes = new byte[1024];
+
+                // Соединяемся с удаленным сервером
+                // Устанавливаем удаленную точку (сервер) для сокета
+                IPHostEntry ipHost = Dns.GetHostEntry(hostname);
+                IPAddress ipAddr = ipHost.AddressList[0];
+                IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, port);
+
+                // Create a TCP socket.
+                Socket client = new Socket(AddressFamily.InterNetwork,
+                        SocketType.Stream, ProtocolType.Tcp);
+
+                // Connect the socket to the remote endpoint.
+                client.Connect(ipEndPoint);
+
+                // There is a text file test.txt located in the root directory.
+                //string fileName = "asdas";
+
+                // Send file fileName to remote device
+                //Console.WriteLine("Sending {0} to the host.", fileName);
+                najatie.Text = "lol";
+                //client.SendFile(fileName);
+
+                // Release the socket.
+                client.Shutdown(SocketShutdown.Both);
+                client.Close();
+
+            }
         }
 
         //private void HAJKATuE(object sender, EventArgs e)//

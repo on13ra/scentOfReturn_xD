@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "scentOfReturn_xD", "scentOfReturn_xD\scentOfReturn_xD.csproj", "{4418E502-EE3B-4D29-8ADD-842C20F1770D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "scentOfReturn_xD", "scentOfReturn_xD\scentOfReturn_xD.csproj", "{4418E502-EE3B-4D29-8ADD-842C20F1770D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "..\ConsoleApp2\ConsoleApp2\Server.csproj", "{12C016A6-D640-4971-93EE-53F25AEF6783}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +19,10 @@ Global
 		{4418E502-EE3B-4D29-8ADD-842C20F1770D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4418E502-EE3B-4D29-8ADD-842C20F1770D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4418E502-EE3B-4D29-8ADD-842C20F1770D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{12C016A6-D640-4971-93EE-53F25AEF6783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12C016A6-D640-4971-93EE-53F25AEF6783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12C016A6-D640-4971-93EE-53F25AEF6783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12C016A6-D640-4971-93EE-53F25AEF6783}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

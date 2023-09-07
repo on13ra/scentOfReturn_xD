@@ -73,8 +73,9 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <!--<Button Grid.Row="2" Text="KHOIIKA"  Clicked="HAЭKATuE"/>--> 
-            <!--америкаа-->
+        <Button Grid.Row="2" Text="KHOIIKA" WidthRequest="40" HeightRequest="40" Clicked="HAЭKATuE"/>
+        <Label Text="" BackgroundColor="Wheat" HeightRequest="50" WidthRequest="50" HorizontalOptions="Start" x:Name="najatie" Grid.Row="2"/>
+        <!--америкаа-->
     </Grid>
     
 
