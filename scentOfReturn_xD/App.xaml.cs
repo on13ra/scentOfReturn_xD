@@ -18,6 +18,7 @@ namespace scentOfReturn_xD
                 Settings.Settings.FirstRun = false;
             }
             else { MainPage = new NavigationPage(new MainPage()); }
+            //MainPage = new NavigationPage(new GroupSelect());
         }
       
     }

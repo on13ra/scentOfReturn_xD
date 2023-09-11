@@ -8,4 +8,5 @@ namespace scentOfReturn_xD
     public class MainActivity : MauiAppCompatActivity
     {
     }
+
 }

@@ -6,10 +6,11 @@
              NavigationPage.HasNavigationBar="False">
     <VerticalStackLayout>
         <Picker x:Name="GroupPicker"
-        Title="Select a monkey">
+                SelectedIndexChanged="GroupPicker_SelectedIndexChanged"
+                Title="Выберите группу">
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
-                    <x:String>Baboon</x:String>
+                    <x:String>ИС</x:String>
                     <x:String>Capuchin Monkey</x:String>
                     <x:String>Blue Monkey</x:String>
                     <x:String>Squirrel Monkey</x:String>
@@ -19,7 +20,11 @@
                 </x:Array>
             </Picker.ItemsSource>
         </Picker>
-        <BoxView Opacity="0.1" BackgroundColor="BlanchedAlmond" WidthRequest="15" HeightRequest="1000" HorizontalOptions="Start">
+        <BoxView Opacity="0.1" 
+                 BackgroundColor="BlanchedAlmond" 
+                 WidthRequest="15" 
+                 HeightRequest="1000" 
+                 HorizontalOptions="Start">
             <BoxView.GestureRecognizers>
                 <TapGestureRecognizer Tapped="ReturnBack"/>
             </BoxView.GestureRecognizers>
