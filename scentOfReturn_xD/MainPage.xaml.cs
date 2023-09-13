@@ -1,4 +1,6 @@
-﻿using scentOfReturn_xD.Pages;
+﻿using Microsoft.Maui.Controls.Internals;
+using scentOfReturn_xD.Pages;
+using Xamarin.Essentials;
 
 namespace scentOfReturn_xD
 
@@ -10,6 +12,9 @@ namespace scentOfReturn_xD
         public MainPage()
         {
             InitializeComponent();
+
+            double width = Microsoft.Maui.Devices.DeviceDisplay.MainDisplayInfo.Width;
+            double almostwidth = width * 0.1;
             
         }
 
@@ -22,8 +27,6 @@ namespace scentOfReturn_xD
         {
             await Navigation.PushAsync(new Features());
         }
-
-
 
         async private void SelectGroup(object sender, TappedEventArgs e)
         {

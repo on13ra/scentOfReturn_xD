@@ -13,11 +13,10 @@
     </ContentPage.BindingContext>
         <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height=".20*"/>
-            <RowDefinition Height=".60*"/>
-            <RowDefinition Height=".20*"/>
+            <RowDefinition Height=".15*"/>
+            <RowDefinition Height=".70*"/>
+            <RowDefinition Height=".15*"/>
         </Grid.RowDefinitions>
-        <Button Text="update" Grid.Row="2" Clicked="updateRasp" WidthRequest="200" HorizontalOptions="Center" VerticalOptions="Start"/>
         <Label Text="{Binding LineCount}"/>
         <Label Grid.Row="0"       
                    FontSize="30"             
@@ -32,12 +31,10 @@
                    BackgroundColor="#8D8C87"
                    Text="{Binding Source=CurrentGroup}" 
                    x:Name="GroupDisplay">
-           
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Tapped="SelectGroup"/>
             </Label.GestureRecognizers>
         </Label>
-        <!--<Label Grid.Row="1" x:Name="Cock" Text="" HorizontalOptions="Center" TextColor="Black"/>-->
         <BoxView Grid.Row="0"
                  Grid.RowSpan="3"
                  BackgroundColor="#E5D3B8"
@@ -60,22 +57,27 @@
                 <TapGestureRecognizer Tapped="ToFeatures"/>
             </BoxView.GestureRecognizers>
         </BoxView>
-        <ListView BackgroundColor="Transparent" HorizontalOptions="Center" Margin="25" Grid.Row="1" x:Name="raspList" ItemsSource="{Binding TheList}" SelectionMode="None">
+        <ListView BackgroundColor="Transparent" 
+                  HorizontalOptions="Center"
+                  Margin="25" Grid.Row="1" 
+                  x:Name="raspList" 
+                  ItemsSource="{Binding TheList}" 
+                  SelectionMode="None"
+                  Refreshing="updateRasp">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <Grid Padding="10">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="1020"/>
                             </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0"
-                                   HorizontalTextAlignment="End"
+                            <Label Grid.Row="0"
+                                   HorizontalTextAlignment="Center"
                                    Text="{Binding TheLine}"
                                    TextColor="#424038"
-                                   FontSize="16"/>
+                                   FontSize="24"
+                                   x:Name="lvstring"
+                                   LineBreakMode="NoWrap"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
