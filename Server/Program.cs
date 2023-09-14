@@ -15,6 +15,7 @@ namespace Server
         private static string path = @"C:\VpmtTracker\temp\";
         async static System.Threading.Tasks.Task Main(string[] args)
         {
+            await ParsTime();
             // Устанавливаем для сокета локальную конечную точку
             IPHostEntry ipHost = Dns.GetHostEntry("localhost");
             IPAddress ipAddr = ipHost.AddressList[0];
@@ -72,15 +73,14 @@ namespace Server
             {
                 Console.ReadLine();
             }
-            await ParsTime();
-
         }
         async static System.Threading.Tasks.Task ParsTime()
         {
+            List<string> time = new List<string>() {"17:05:00", "19:05:00", "6:00:00" };//время обновления расписания
             while (true) 
             {
-                await System.Threading.Tasks.Task.Run(()=> Pars());
-                Thread.Sleep(10000);
+                if (time.Contains(DateTime.Now.ToLongTimeString()))
+                    await System.Threading.Tasks.Task.Run(()=> Pars());
             }
         }
         static void Pars()
