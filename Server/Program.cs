@@ -1,21 +1,27 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.IO;
-using Microsoft.Office.Interop.Word;
-using System.Text;
-using System.Threading;
+using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace Server
 {
     internal class Program
     {
-        private static string path = @"C:\VpmtTracker\temp\";
-        async static System.Threading.Tasks.Task Main(string[] args)
+        private static string currentDirectory = Directory.GetCurrentDirectory();  // сюда загрузятся все файлы (Server/bin/Debug)
+
+        // Задайте имя папки, которую вы хотите создать
+        private static string folderName = "rasptemp\\";
+
+        // Полный путь к новой папке
+        private static string path = Path.Combine(currentDirectory, folderName);
+
+        //async static System.Threading.Tasks.Task Maincraft()
+         static void Maincraft()
         {
-            await ParsTime();
+            //await ParsTime();
             // Устанавливаем для сокета локальную конечную точку
             IPHostEntry ipHost = Dns.GetHostEntry("localhost");
             IPAddress ipAddr = ipHost.AddressList[0];
@@ -74,17 +80,37 @@ namespace Server
                 Console.ReadLine();
             }
         }
-        async static System.Threading.Tasks.Task ParsTime()
+        //async static System.Threading.Tasks.Task ParsTime()
+        //{
+        //    List<string> time = new List<string>() {"17:05:00", "19:05:00", "6:00:00" };//время обновления расписания
+        //    while (true) 
+        //    {
+        //        if (time.Contains(DateTime.Now.ToLongTimeString()))
+        //            await System.Threading.Tasks.Task.Run(()=> Pars());
+        //    }
+        //}
+        static void Main()
         {
-            List<string> time = new List<string>() {"17:05:00", "19:05:00", "6:00:00" };//время обновления расписания
-            while (true) 
+           Maincraft();
+            try
             {
-                if (time.Contains(DateTime.Now.ToLongTimeString()))
-                    await System.Threading.Tasks.Task.Run(()=> Pars());
+                // Проверьте, существует ли папка, прежде чем создавать её
+                if (!Directory.Exists(path))
+                {
+                    // Создайте папку
+                    Directory.CreateDirectory(path);
+                    Console.WriteLine("Папка успешно создана.");
+                }
+                else
+                {
+                    Console.WriteLine("Папка уже существует.");
+                }
             }
-        }
-        static void Pars()
-        {
+            catch (Exception ex)
+            {
+                Console.WriteLine("Произошла ошибка: " + ex.Message);
+            }
+
             Directory.Delete(path, true); //true - если директория не пуста (удалит и файлы и папки)
             Directory.CreateDirectory(path);
             string path1 = "";
@@ -93,7 +119,7 @@ namespace Server
             try
             {
                 DownloadWord();
-                Document file = word.Documents.Open(path + @"rasp.doc");
+                Document file = word.Documents.Open(Path.Combine(path,"rasp.doc")); //тут откроется расписание файл 
 
                 List<string> list = new List<string> { "1 СП", "2 СП", "3 СП", "4 СП", "1 ТО", "2 ТО", "3 ТО", "4 АТ", "1 ТМ", "2 ТМ", "3 ТМ", "4 ТМ", "1 ИС", "2 ИС", "3 ИС", "4 ИС", "1 ЭЛ", "2 ЭЛ", "3 ЭЛ", "4 ЭЛ", "1 МО", "2 ОС", "3 ТП", "1 СПП", "1 ЭМ", "2 СВ", "3 МО" };
                 char[] ra = new char[] { '\r', '\a' };
@@ -102,7 +128,7 @@ namespace Server
                 {
                     try
                     {
-                        Table table = file.Tables[numtable];//выбор таблицы 
+                        Table table = file.Tables[numtable]; //выбор таблицы 
 
                         for (int row = 1; row < 14; row += 2)
                         {
@@ -137,8 +163,8 @@ namespace Server
                 }
                 word.Quit();
             }
-            catch (Exception ex) 
-            { 
+            catch (Exception ex)
+            {
                 word.Quit();
                 string dirtemp = path;
                 Directory.Delete(dirtemp, true); //true - если директория не пуста (удалит и файлы и папки)
@@ -149,7 +175,7 @@ namespace Server
         public static void DownloadWord()//
         {
             WebClient webClient = new WebClient();
-            webClient.DownloadFile("http://www.vpmt.ru/docs/rasp.doc", @"C:\VpmtTracker\temp\rasp.doc"); //скачать
+            webClient.DownloadFile("http://www.vpmt.ru/docs/rasp.doc", Path.Combine(path, "rasp.doc")); //сюда скачается расписание с именем rasp.doc
         }
     }
 }
