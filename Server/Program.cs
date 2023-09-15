@@ -18,80 +18,86 @@ namespace Server
         // Полный путь к новой папке
         private static string path = Path.Combine(currentDirectory, folderName);
 
-        //async static System.Threading.Tasks.Task Maincraft()
-         static void Maincraft()
+        async static System.Threading.Tasks.Task Maincraft()
         {
-            //await ParsTime();
-            // Устанавливаем для сокета локальную конечную точку
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
-
-            // Создаем сокет Tcp/Ip
-            Socket sListener = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
-            // Назначаем сокет локальной конечной точке и слушаем входящие сокеты
-            try
+            await ParsTime();
+            UdpClient udpServer = new UdpClient(11000);
+            while (true)
             {
-                sListener.Bind(ipEndPoint);
-                sListener.Listen(10);
-
-                // Начинаем слушать соединения
-                while (true)
+                var remoteEP = new IPEndPoint(IPAddress.Any, 11000);
+                if (remoteEP == null)
                 {
-                    Console.WriteLine("Ожидаем соединение через порт {0}", ipEndPoint);
-
-                    // Программа приостанавливается, ожидая входящее соединение
-                    Socket handler = sListener.Accept();
-                    string data = null;
-
-                    // Мы дождались клиента, пытающегося с нами соединиться
-
-                    byte[] bytes = new byte[1024];
-                    int bytesRec = handler.Receive(bytes);
-
-                    data += Encoding.UTF8.GetString(bytes, 0, bytesRec);
-
-                    // Показываем данные на консоли
-                    Console.Write("Полученный текст: " + data + "\n\n");
-
-                    // Отправляем ответ клиенту\
-                    string reply = "Спасибо за запрос в " + data.Length.ToString()
-                            + " символов";
-                    byte[] msg = Encoding.UTF8.GetBytes(reply);
-                    handler.Send(msg);
-
-                    if (data.IndexOf("<TheEnd>") > -1)
-                    {
-                        Console.WriteLine("Сервер завершил соединение с клиентом.");
-                        break;
-                    }
-
-                    handler.Shutdown(SocketShutdown.Both);
-                    handler.Close();
+                    var data = udpServer.Receive(ref remoteEP); ; // listen on port 11000
+                    string line = Encoding.UTF8.GetString(data);
+                    Console.WriteLine(line);
+                    string fileName = GetFileNameForMessage(line);
+                    string currentFile = Path.Combine(path, fileName);
+                    string lines = File.ReadAllText(currentFile, Encoding.UTF8);
+                    byte[] responseBytes = Encoding.UTF8.GetBytes(lines);
+                    udpServer.Send(responseBytes, responseBytes.Length,remoteEP); // reply back
                 }
             }
-            catch (Exception ex)
+        }
+
+        // Определяем имя файла на основе сообщения от клиента
+        static string GetFileNameForMessage(string message)
+        {
+            switch (message.Trim())
             {
-                Console.WriteLine(ex.ToString());
-            }
-            finally
-            {
-                Console.ReadLine();
+                case "4EL":
+                    return "1_4_ЭЛ.txt";
+                case "4TM":
+                    return "1_4_ТМ.txt";
+                case "4SP":
+                    return "1_4_СП.txt";
+                case "4IS":
+                    return "1_4_ИС.txt";
+                case "3EL":
+                    return "1_3_ЭЛ.txt";
+                case "3TO":
+                    return "1_3_ТО.txt";
+                case "3TM":
+                    return "1_3_ТМ.txt";
+                case "3SP":
+                    return "1_3_СП.txt";
+                case "3IS":
+                    return "1_3_ИС.txt";
+                case "2EL":
+                    return "1_2_ЭЛ.txt";
+                case "2TO":
+                    return "1_2_ТО.txt";
+                case "2TM":
+                    return "1_2_ТМ.txt";
+                case "2SP":
+                    return "1_2_СП.txt";
+                case "2IS":
+                    return "1_2_ИС.txt";
+                case "1EL":
+                    return "1_1_ЭЛ.txt";
+                case "1TO":
+                    return "1_1_ТО.txt";
+                case "1TM":
+                    return "1_1_ТМ.txt";
+                case "1SP":
+                    return "1_1_СП.txt";
+                case "1IS":
+                    return "1_1_ИС.txt";
+                default:
+                    return "cock"; // Если сообщение не соответствует файлу, вернуть null
             }
         }
-        //async static System.Threading.Tasks.Task ParsTime()
-        //{
-        //    List<string> time = new List<string>() {"17:05:00", "19:05:00", "6:00:00" };//время обновления расписания
-        //    while (true) 
-        //    {
-        //        if (time.Contains(DateTime.Now.ToLongTimeString()))
-        //            await System.Threading.Tasks.Task.Run(()=> Pars());
-        //    }
-        //}
-        static void Main()
+        async static System.Threading.Tasks.Task ParsTime()
         {
-           Maincraft();
+            Pars();
+            List<string> time = new List<string>() { "17:05:00", "19:05:00", "6:00:00" };//время обновления расписания
+            while (true)
+            {
+                if (time.Contains(DateTime.Now.ToLongTimeString()))
+                    await System.Threading.Tasks.Task.Run(() => Pars());
+            }
+        }
+        static void Pars()
+        {
             try
             {
                 // Проверьте, существует ли папка, прежде чем создавать её
@@ -121,7 +127,23 @@ namespace Server
                 DownloadWord();
                 Document file = word.Documents.Open(Path.Combine(path,"rasp.doc")); //тут откроется расписание файл 
 
-                List<string> list = new List<string> { "1 СП", "2 СП", "3 СП", "4 СП", "1 ТО", "2 ТО", "3 ТО", "4 АТ", "1 ТМ", "2 ТМ", "3 ТМ", "4 ТМ", "1 ИС", "2 ИС", "3 ИС", "4 ИС", "1 ЭЛ", "2 ЭЛ", "3 ЭЛ", "4 ЭЛ", "1 МО", "2 ОС", "3 ТП", "1 СПП", "1 ЭМ", "2 СВ", "3 МО" };
+                List<string> list = new List<string> 
+                { 
+                    "1 СП", "2 СП", "3 СП", "4 СП",
+                    "1 ТО", "2 ТО", "3 ТО", "4 ТО",
+                    "4 АТ", 
+                    "1 ТМ", "2 ТМ", "3 ТМ", "4 ТМ",
+                    "1 ИС", "2 ИС", "3 ИС", "4 ИС",
+                    "1 ЭЛ", "2 ЭЛ", "3 ЭЛ", "4 ЭЛ", 
+                    "1 ТП","2 ТП","3 ТП", "4 ТП",
+                    "1 СПП",
+                    "1 ЭМ", "2 ЭМ", "3 ЭМ", "4 ЭМ",
+                    "1 СВ","2 СВ", "3СВ", "4 СВ",
+                    "1 МО","2 МО", "3 МО", "4 МО",
+                    "1 ПКД", "2 ПКД", "3 ПКД", "4 ПКД",
+                    "1 ОС", "2 ОС", "3 ОС", "4 ОС",
+                    "1 НС", "2 НС", "3 НС", "4 НС"
+                };
                 char[] ra = new char[] { '\r', '\a' };
 
                 for (int numtable = 1; numtable <= 1; numtable++)

@@ -1,5 +1,8 @@
 ﻿using Microsoft.Maui.Controls.Internals;
 using scentOfReturn_xD.Pages;
+using System.Text;
+using System.Net.Sockets;
+using System.Net;
 using Xamarin.Essentials;
 
 namespace scentOfReturn_xD
@@ -35,7 +38,17 @@ namespace scentOfReturn_xD
 
         private void updateRasp(object sender, EventArgs e)
         {
-
+            string message = ;
+            byte[] data = Encoding.UTF8.GetBytes(message);
+            var client = new UdpClient();
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 11000); // endpoint where server is listening
+            client.Connect(ep);
+            // send data
+            client.Send(data);
+            // then receive data
+            var receivedData = client.Receive(ref ep);
+            string line = Encoding.UTF8.GetString(receivedData);
+            Console.WriteLine(line);
         }
     }
 }
