@@ -38,7 +38,7 @@ namespace scentOfReturn_xD
 
         private void updateRasp(object sender, EventArgs e)
         {
-            string message = ;
+            string message="4IS";
             byte[] data = Encoding.UTF8.GetBytes(message);
             var client = new UdpClient();
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 11000); // endpoint where server is listening
@@ -48,7 +48,15 @@ namespace scentOfReturn_xD
             // then receive data
             var receivedData = client.Receive(ref ep);
             string line = Encoding.UTF8.GetString(receivedData);
-            Console.WriteLine(line);
+
+            //string temp = Path.GetTempPath()+@"\rasp.txt";
+            //Directory.Delete(temp, true);
+            //Directory.CreateDirectory(temp);
+            //using (StreamWriter writer = new StreamWriter(temp, true)) 
+            //{
+            //    writer.Write(line);
+            //}
+            
         }
     }
 }

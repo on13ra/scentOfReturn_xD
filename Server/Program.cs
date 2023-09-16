@@ -18,7 +18,7 @@ namespace Server
         // Полный путь к новой папке
         private static string path = Path.Combine(currentDirectory, folderName);
 
-        async static System.Threading.Tasks.Task Maincraft()
+        async static System.Threading.Tasks.Task Main()
         {
             await ParsTime();
             UdpClient udpServer = new UdpClient(11000);
@@ -138,7 +138,7 @@ namespace Server
                     "1 ТП","2 ТП","3 ТП", "4 ТП",
                     "1 СПП",
                     "1 ЭМ", "2 ЭМ", "3 ЭМ", "4 ЭМ",
-                    "1 СВ","2 СВ", "3СВ", "4 СВ",
+                    "1 СВ","2 СВ", "3 СВ", "4 СВ",
                     "1 МО","2 МО", "3 МО", "4 МО",
                     "1 ПКД", "2 ПКД", "3 ПКД", "4 ПКД",
                     "1 ОС", "2 ОС", "3 ОС", "4 ОС",
@@ -160,7 +160,7 @@ namespace Server
                                 {
                                     if (list.Contains(table.Cell(column, row / 2 + row % 2).Range.Text.Trim(ra)))//проверка названия подгруппы
                                     {
-                                        path1 = path + numtable + "_" + table.Cell(column, row / 2 + row % 2).Range.Text.Trim(ra).Replace(' ', '_') + ".txt";
+                                        path1 = path + numtable + "_" + table.Cell(column, row / 2 + row % 2).Range.Text.Trim(ra).Replace(" ", "") + ".txt";
                                         using (StreamWriter writer = new StreamWriter(path1, false))
                                         {
                                             writer.WriteLine(table.Cell(column, row / 2 + row % 2).Range.Text.Trim(ra));//название подгруппы
